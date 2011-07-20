@@ -3,8 +3,18 @@ BigInt
 
 Arbitrary precision integer library for AutoHotkey v2 (alpha)
 
-Requirements
-============
+Goals
+=====
+
+* Be easy to use, straightforward, consistent, accurate, and fast
+* Ensure accuracy and validity through unit tests
+
+* ***Any*** base as input and output (given char list of course)
+* Include as many functions as possible & reasonable for an 
+  integer lib
+
+Change Requirements
+===================
 
 These are the requirements for all changes.
 
