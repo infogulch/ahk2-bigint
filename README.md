@@ -4,7 +4,7 @@ BigInt
 Arbitrary precision integer library for AutoHotkey v2 (alpha)
 
 Goals
-=====
+-----
 
 * Be easy to use, straightforward, consistent, accurate, and fast
 * Ensure accuracy and validity through unit tests
@@ -14,7 +14,7 @@ Goals
   integer lib
 
 Change Requirements
-===================
+-------------------
 
 These are the requirements for all changes.
 
@@ -29,7 +29,7 @@ These are the requirements for all changes.
   instances OR normal ahk numbers.
   
 Usage Examples
-==============
+--------------
 
 Regular Math:
 
