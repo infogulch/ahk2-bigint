@@ -1,0 +1,366 @@
+
+class BigInt
+{
+    mult( n ) {
+        global BigInt
+        if n.__Class == "BigInt"
+        {
+            ins := []
+            layers := []
+            loop n._MaxIndex()
+            {
+                lay := this.Mult(n[A_Index])
+                if ins._maxindex()
+                    lay.insert(1, ins*)
+                ins.insert(0)
+                layers.insert(lay)
+            }
+            ret := layers.remove().sum(layers)
+            ret.neg := n.neg * this.neg
+            return ret
+        }
+        ; TODO: special cases of 0 and 1
+        carry := 0
+        ret := new BigInt(0)
+        ret.neg := this.neg * sign(n)
+        n := Abs(Floor(n))
+        loop this._MaxIndex()
+        {
+            t := this[A_Index] * n + carry
+            carry := t > 0 ? t >> 32 : ~(-(t >> 32))+1
+            ret[A_Index] := t & 0xffffffff
+        }
+        if carry
+            ret.insert(carry)
+        return ret
+    }
+    
+    sum( ns ) {
+        Global BigInt
+        ret := this.clone()
+        while n := ns.remove()
+        {
+            if n.__Class != "BigInt"
+                n := new BigInt(n)
+            else
+                n := n.clone()
+            if n.neg == ret.neg
+                neg := n.neg  , rneg := 1 , xneg := 1
+            else if ret.abs().gt(n.abs())
+                neg := ret.neg, rneg := 1 , xneg := -1
+            else
+                neg := n.neg  , rneg := -1, xneg := 1
+            i := 1
+            carry := 0
+            while i <= n._MaxIndex() OR i <= ret._MaxIndex()
+            {
+                t := (ret[i] OR 0)*rneg + (n[i] OR 0)*xneg + carry
+                if t < 0
+                    ret[i] := t + 0x100000000
+                    , carry := -1
+                else
+                    ret[i] := t & 0xffffffff
+                    , carry := t >> 32
+                i++
+            }
+            ret.neg := neg
+            if carry
+                ret.insert(carry)
+        }
+        ret._trim()
+        return ret
+    }
+    
+    add( n ) {
+        return this.sum([n])
+    }
+    
+    sub( n ) {
+        global BigInt
+        if n.__class != "BigInt"
+            n := new BigInt(n)
+        else
+            n := n.clone()
+        n.neg := n.neg * -1
+        return this.sum([n])
+    }
+    
+    div( D, ByRef R = 0 ) {
+    ; adapted from BigInt lib from http://sourceforge.net/projects/cpp-bigint/
+        Global BigInt
+        N := this.clone()
+        D := D.clone()
+        neg := N.neg * D.neg
+        N.neg := 1
+        D.neg := 1
+        
+        iD := D.clone()
+        iN := N.clone()
+        
+        ; TODO: check N > D
+        ; TODO: check D > 0
+        ; TODO: check N > 0
+        
+        Q := new BigInt()
+        shiftcnt := 0
+        while D.lt(N)
+            D := D.shl(), shiftcnt++
+        if D.gt(N)
+            D := D.shr(), shiftcnt--
+        
+        if shiftcnt >= 0
+        {
+            loop shiftcnt+1
+            {
+                Q := Q.shl()
+                if D.lteq(N)
+                {
+                    N := N.sub(D)
+                    Q := Q.add(1)
+                }
+                D := D.shr()
+            }
+        }
+        R := iN.sub(iD.mult(Q))
+        Q.neg := neg
+        return Q
+    }
+    
+    maxbit() {
+        bits := (this._maxindex() - 1) * 32
+        x := this[this._maxindex()]
+        while x
+            bits++, x := x >> 1
+        return bits
+    }
+    
+    pow( n ) {
+        global BigInt
+        if n.__Class != "BigInt"
+            n := new BigInt(n)
+        if n.neg == -1
+            return "must be positive"
+        return BigInt._power(this, n)
+    }
+    
+    _power( x, n ) {
+        global BigInt
+        if x.eq(0)
+            return new BigInt(0)
+        if x.eq(1) OR n.eq(0)
+            return new BigInt(1)
+        if n.eq(1)
+            return x.clone()
+        if n[1] & 1  ; odd
+            return x.mult(BigInt._power(x.mult(x), n.shr()))
+        return BigInt._power(x.mult(x), n.shr())  ; even
+    }
+    
+    shl( n = 1 ) {
+        ret := this.clone()
+        loop n//32
+            ret.insert(1, 0)
+        n := mod(n,32)
+        m := (0xffffffff << (32-n)) & 0xffffffff
+        c := 0
+        loop ret._maxindex()
+            ct := (ret[A_Index] & m) >> (32-n)
+            , ret[A_Index] := ((ret[A_Index] << n) & 0xffffffff) | c
+            , c := ct
+        if c
+            ret.insert(c)
+        ret._trim()
+        return ret
+    }
+    
+    shr( n = 1 ) {
+        ret := this.clone()
+        if n//32
+        {
+            ret.remove(1, n//32)
+            n := mod(n,32)
+            if !ret._maxindex()
+                ret.insert(0)
+        }
+        m := 0xffffffff >> (32 - n)
+        loop ret._maxindex()
+            ret[A_Index] := (ret[A_Index] >> n) | (((ret[A_Index+1] OR 0) & m) << (32-n))
+        ret._trim()
+        return ret
+    }
+    
+    or() {
+    
+    }
+    
+    and() {
+    
+    }
+    
+    xor() {
+    
+    }
+    
+    not() {
+    
+    }
+    
+    gt( n ) {
+        if this.neg != n.neg
+            return this.neg > n.neg
+        if this._maxindex()*this.neg < n._maxindex()*n.neg
+            return false
+        i := max(this._maxindex(), n._maxindex())
+        while i
+            if (this[i] OR 0)*this.neg > (n[i--] OR 0)*n.neg
+                return true
+        return ""
+    }
+    
+    gteq( n ) {
+        return this.gt(N) OR this.eq(n)
+    }
+    
+    lt( n ) {
+        if this.neg != n.neg
+            return this.neg < n.neg
+        if this._maxindex()*this.neg > n._maxindex()*n.neg
+            return false
+        i := max(this._maxindex(), n._maxindex())
+        while i
+            if (this[i] OR 0)*this.neg < (n[i--] OR 0)*n.neg
+                return true
+        return false
+    }
+    
+    lteq( n ) {
+        return this.lt(n) OR this.eq(n)
+    }
+    
+    eq( n ) {
+        global BigInt
+        if n.__class != "BigInt"
+            n := new BigInt(n)
+        if this._maxindex() != n._maxindex() OR this.neg != n.neg
+            return false
+        loop this._maxindex()
+            if this[A_Index] != n[A_Index]
+                return false
+        return true
+    }
+    
+    noteq( n ) {
+        return !this.eq(n)
+    }
+    
+    abs() {
+        ret := this.clone()
+        ret.neg := 1
+        return ret
+    }
+    
+    _trim() {
+        while this[this._maxindex()] == 0 AND this._maxindex() != 1
+            this.remove()
+        if this._maxindex() == 1 AND this[1] == 0
+            this.neg := 1
+    }
+    
+    __new( x = 0, method = '' ) {
+        if method = ''
+        {
+            this.neg := x < 0 ? -1 : 1
+            carry := Abs(Floor(x)) >> 32
+            this[1] := Abs(Floor(x)) & 0xffffffff
+            if carry
+                this[2] := carry
+        }
+        if method = 'hex'
+        {
+            this.neg := substr(x,1,1) == '-' ? -1 : 1
+            this[1] := 0
+            if this.neg == -1
+                x := substr(x,2)
+            if substr(x,1,2) == '0x'
+                x := substr(x,3)
+            while x
+            {
+                y := substr(x,-8)
+                this[A_Index] := ("0x" y) + 0
+                x := substr(x, 1, -8)
+            }
+        }
+        this._trim()
+    }
+    
+    __string( format = "hex" ) {
+        ; add little-edian format
+        ; add octal format
+        ; add decimal format
+        if format = "hex"
+            loop this._maxindex()
+                ret := format("{1:08x}", this[A_Index]) ret
+        else if format = "bin"
+            loop this._maxindex()
+                ret := substr("0000000000000000000000000000000000000000" bin(this[A_Index]), -32) ret
+        return (this.neg < 0 ? "-" : "") ret
+    }
+
+}
+
+sign(x) {
+    return x < 0 ? -1 : 1
+}
+
+bin(x){
+    if !x
+        r := 0
+	while x
+		r:=1&x r,x>>=1
+	return r
+}
+
+#singleinstance, force
+
+/*
+BigInt::Rossi BigInt::Rossi::sqrt()		// Returns the square root of this
+{
+    BigInt::Rossi ret;
+    BigInt::Rossi tmp;
+    BigInt::Rossi delta;
+
+    BigInt::Rossi mask (RossiTwo);
+
+    tmp = *this;
+    mask = -mask;
+
+    std::size_t i = 0;
+    ret = tmp; 
+    for (i = 0; ret != RossiZero; ret >>= 1, i++)
+    {
+        // Do nothing
+    }
+
+    ret = tmp; 
+    for (std::size_t j = 0; j < std::size_t(i >> 1); ret >>= 1, j++)
+    {
+        // Do nothing
+    }
+
+    do
+    {
+        // -----------------------------------------------
+        // We are really performing the fuction:
+        //	 delta = (tmp/ret - ret) / 2;
+        //   below, but since these are unsigned numbers,
+        //   we MUST do the subtraction last in order for
+        //   the ret = ret + delta;  equation to work properly.
+        // -----------------------------------------------
+
+        delta = ( tmp >> BigInt::Ulong(1)) / ret - (ret >> BigInt::Ulong(1));
+        ret = ret + delta;
+    } while ((delta &= mask) != RossiZero);
+
+    return ret;
+}
+*/

@@ -1,0 +1,25 @@
+
+addr58 := "1Hdbo1Pa3Vg6ytyXF9bEx4tzZbRUAjPMfE"
+addr16 := "04834cb92ea834ba4ebf4fc1aaaa2dc24d134d07b62945ee469c4ddc55d6df97fabc09f10a881420c906ac581e7f984fe915b80a89a8d704ecd0075f58bb990f66"
+
+
+base58 := "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+
+msgbox % "_" fromanybase(addr58, 58, base58).__string() "_`n`n_" addr16 "_"
+
+fromanybase( str, base, chars = "" ) {
+    global BigInt
+    base := new BigInt(base)
+    ret := new BigInt(0)
+    loop StrLen(str)
+    {
+        c := SubStr(str, -A_Index, 1)
+        num := InStr(chars, c, 1)-1
+        val := (new BigInt(num)).mult(base.pow(A_Index-1))
+        ret.add(val)
+        msgbox % c "`n" num "`n" val.__string() "`n" ret.__string()
+    }
+    return ret
+}
+
+#include BigInt.ahk2
