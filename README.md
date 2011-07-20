@@ -8,10 +8,11 @@ Goals
 
 * Be easy to use, straightforward, consistent, accurate, and fast
 * Ensure accuracy and validity through unit tests
-
 * ***Any*** base as input and output (given char list of course)
 * Include as many functions as possible & reasonable for an 
   integer lib
+* Pure AHK(2) solution. Not rely on third-party extensions, 
+  binaries, dll, or web requests to Wolfram|Alpha. 
 
 Change Requirements
 -------------------
