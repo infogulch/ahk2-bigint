@@ -189,19 +189,54 @@ class BigInt
         return ret
     }
     
-    or() {
+    or( n ) {
+        global BigInt
+        if n.__class != "BigInt"
+            n := new BigInt(n)
+        ret := this.clone()
+        loop n._maxindex()
+            ret[A_Index] := (ret[A_Index] OR 0) | n[A_Index]
+        return ret
+    }
+    
+    and( n ) {
+        global BigInt
+        if n.__class != "BigInt"
+            n := new BigInt(n)
+        ret := new BigInt()
+        ret.neg := this.neg
+        loop n._maxindex()
+            ret[A_Index] := (this[A_Index] OR 0) & n[A_Index]
+        return ret
+    }
+    
+    xor( n ) {
+        global BigInt
+        if n.__class != "BigInt"
+            n := new BigInt(n)
+        ret := this.clone()
+        loop n._maxindex()
+            ret[A_Index] := (ret[A_Index] OR 0) ^ n[A_Index]
+        return ret
+    }
+    
+    not( m = "" ) {
+        if 
+        ret := this.clone()
+        loop ret._maxindex()
+            ret[A_Index] := ~ret[A_Index] & 0xffffffff
+        return ret
+    }
+    
+    sqrt() {
     
     }
     
-    and() {
+    rotr() {
     
     }
     
-    xor() {
-    
-    }
-    
-    not() {
+    rotl () {
     
     }
     

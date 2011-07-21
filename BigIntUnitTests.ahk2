@@ -29,16 +29,16 @@
         testgroup's "outputmethods" array
 */
 
-/*
+/* TODO
 Finish:
     tests_new
     tests_mult
     tests_pow
 Add:
-    check that originals aren't modified in ALL tests
-    other bitwise operations
-        AND, OR, XOR, NOT(length = this.maxbit())
-    
+    tests_or
+    tests_and
+    tests_xor
+    tests_not
     tests_div
     
     check that functions that can take non-BigInt are able to
