@@ -28,7 +28,12 @@ These are the requirements for all changes.
   (see BigIntUnitTest.ahk2 for examples)
 * If possible, accept arguments that can be either BigInt 
   instances OR normal ahk numbers.
-  
+* User functions should have short names consisting only of 
+  lower-case characters, and be at least mildly self-descriptive.
+  Internal functions, including functions that may modify `this`
+  and other args, should be prefixed with one or more 
+  underscores.
+
 Usage Examples
 --------------
 
@@ -36,16 +41,16 @@ Regular Math:
 
     x := new BigInt(55)
     
-    MsgBox % x.div(new BigInt(5)).__string()
+    MsgBox % x.div(new BigInt(5)).__string()  ; integer division
     
-    MsgBox % x.mult(33).__string()
+    MsgBox % x.mult(33).__string()  ; multiplication
     
     y := new BigInt(0x800)
     
-    MsgBox % y.shl().__string()
+    MsgBox % y.shl(400).__string()  ; left shift by 400 bits
     
-    MsgBox % y.shr().__string()
-    
+    MsgBox % y.shr().__string()  ; right shift (1 is default)
+
 
 Take a really big number, and square it a bunch of times: 
 
@@ -54,4 +59,6 @@ Take a really big number, and square it a bunch of times:
     loop 10
         x := x.pow(2)
         
-    msgbox % x.__string()
+    msgbox % x.__string()  ; this is a really really huge number
+
+Note that 
