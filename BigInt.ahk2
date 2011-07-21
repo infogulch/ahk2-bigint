@@ -221,10 +221,12 @@ class BigInt
     }
     
     not( m = "" ) {
-        if 
+        m := max(this.maxbit(), m)
         ret := this.clone()
-        loop ret._maxindex()
+        loop m // 32
             ret[A_Index] := ~ret[A_Index] & 0xffffffff
+        if mod(m, 32)
+            ret[ret._maxindex()] := ~ret[ret._maxindex()] & (0xffffffff >> (32-mod(m,32)))
         return ret
     }
     
