@@ -46,60 +46,78 @@ class BigInt
     }
     
     sum( ns ) {
-        Global BigInt
         ret := this.clone()
+        ret._sum(ns)
+        return ret
+    }
+    
+    _sum( ns ) {
+        Global BigInt
         while n := ns.remove()
         {
             if n.__Class != "BigInt"
                 n := new BigInt(n)
+            if n.neg == this.neg
+                rneg := 1 , xneg := 1
+            else if this.abs().gt(n.abs())
+                rneg := 1 , xneg := -1
             else
-                n := n.clone()
-            if n.neg == ret.neg
-                neg := n.neg  , rneg := 1 , xneg := 1
-            else if ret.abs().gt(n.abs())
-                neg := ret.neg, rneg := 1 , xneg := -1
-            else
-                neg := n.neg  , rneg := -1, xneg := 1
-            i := 1
+                this.neg := n.neg  , rneg := -1, xneg := 1
             carry := 0
-            while i <= n._MaxIndex() OR i <= ret._MaxIndex()
+            loop max(n._MaxIndex(), this._MaxIndex())
             {
-                t := (ret[i] OR 0)*rneg + (n[i] OR 0)*xneg + carry
+                t := (this[A_Index] OR 0)*rneg + (n[A_Index] OR 0)*xneg + carry
                 if t < 0
-                    ret[i] := t + 0x100000000
+                    this[A_Index] := t + 0x100000000
                     , carry := -1
                 else
-                    ret[i] := t & 0xffffffff
+                    this[A_Index] := t & 0xffffffff
                     , carry := t >> 32
-                i++
             }
-            ret.neg := neg
             if carry
-                ret.insert(carry)
+                this.insert(carry)
         }
-        ret._trim()
-        return ret
+        this._trim()
     }
     
     add( n ) {
         return this.sum([n])
     }
     
+    _add( n ) {
+        this._sum([n])
+    }
+    
     sub( n ) {
-        global BigInt
+        ret := this.clone()
+        ret._sub(n)
+        return ret
+    }
+    
+    _sub( n ) {
+        Global BigInt
         if n.__class != "BigInt"
             n := new BigInt(n)
         else
             n := n.clone()
         n.neg := n.neg * -1
-        return this.sum([n])
+        this._sum([n])
     }
     
     div( D, ByRef R = 0 ) {
+        ret := this.clone()
+        ret._div(D,R)
+        return ret
+    }
+    
+    _div( D, ByRef R = 0 ) {
     ; adapted from BigInt lib from http://sourceforge.net/projects/cpp-bigint/
         Global BigInt
+        if D.__class != "BigInt"
+            D := new BigInt(D)
+        else
+            D := D.clone()
         N := this.clone()
-        D := D.clone()
         neg := N.neg * D.neg
         N.neg := 1
         D.neg := 1
@@ -114,29 +132,26 @@ class BigInt
             return "Error: Can't divide by zero" 
         }
         
-        Q := new BigInt()
+        this := Q := new BigInt()
         shiftcnt := 0
         while D.lt(N)
-            D := D.shl(), shiftcnt++
+            D._shl(), shiftcnt++
         if D.gt(N)
-            D := D.shr(), shiftcnt--
+            D._shr(), shiftcnt--
         
         if shiftcnt >= 0
-        {
             loop shiftcnt+1
             {
-                Q := Q.shl()
+                Q._shl()
                 if D.lteq(N)
                 {
-                    N := N.sub(D)
-                    Q := Q.add(1)
+                    N._sub(D)
+                    Q._add(1)
                 }
-                D := D.shr()
+                D._shr()
             }
-        }
         R := iN.sub(iD.mult(Q))
         Q.neg := neg
-        return Q
     }
     
     maxbit() {
@@ -171,35 +186,43 @@ class BigInt
     
     shl( n = 1 ) {
         ret := this.clone()
+        ret._shl(n)
+        return ret
+    }
+    
+    _shl( n = 1 ) {
         loop n//32
-            ret.insert(1, 0)
+            this.insert(1, 0)
         n := mod(n,32)
         m := (0xffffffff << (32-n)) & 0xffffffff
         c := 0
-        loop ret._maxindex()
-            ct := (ret[A_Index] & m) >> (32-n)
-            , ret[A_Index] := ((ret[A_Index] << n) & 0xffffffff) | c
+        loop this._maxindex()
+            ct := (this[A_Index] & m) >> (32-n)
+            , this[A_Index] := ((this[A_Index] << n) & 0xffffffff) | c
             , c := ct
         if c
-            ret.insert(c)
-        ret._trim()
-        return ret
+            this.insert(c)
+        this._trim()
     }
     
     shr( n = 1 ) {
         ret := this.clone()
+        ret._shr(n)
+        return ret
+    }
+    
+    _shr( n = 1 ) {
         if n//32
         {
-            ret.remove(1, n//32)
+            this.remove(1, n//32)
             n := mod(n,32)
-            if !ret._maxindex()
-                ret.insert(0)
+            if !this._maxindex()
+                this.insert(0)
         }
         m := 0xffffffff >> (32 - n)
-        loop ret._maxindex()
-            ret[A_Index] := (ret[A_Index] >> n) | (((ret[A_Index+1] OR 0) & m) << (32-n))
-        ret._trim()
-        return ret
+        loop this._maxindex()
+            this[A_Index] := (this[A_Index] >> n) | (((this[A_Index+1] OR 0) & m) << (32-n))
+        this._trim()
     }
     
     or( n ) {
@@ -305,8 +328,12 @@ class BigInt
     
     abs() {
         ret := this.clone()
-        ret.neg := 1
+        ret._abs()
         return ret
+    }
+    
+    _abs() {
+        this.neg := 1
     }
     
     _trim() {
@@ -363,9 +390,7 @@ sign(x) {
 }
 
 bin(x){
-    if !x
-        r := 0
-	while x OR A_Index > 1
+	while x OR A_Index == 1
 		r:=1&x r,x>>=1
 	return r
 }
