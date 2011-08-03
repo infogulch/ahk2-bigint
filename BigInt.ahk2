@@ -19,16 +19,26 @@ class BigInt
             ret.neg := n.neg * this.neg
             return ret
         }
-        ; TODO: special cases of 0 and 1
-        carry := 0
+        if n == 0 OR this.eq(0)
+            return new BigInt(0)
+        if Abs(n) == 1
+        {
+            ret := this.clone()
+            ret.neg := ret.neg * sign(n)
+            return ret
+        }
+        if this.abs().eq(1)
+            return new BigInt(n * this.neg)
+        
         ret := new BigInt(0)
         ret.neg := this.neg * sign(n)
+        carry := 0
         n := Abs(Floor(n))
         loop this._MaxIndex()
         {
             t := this[A_Index] * n + carry
-            carry := t > 0 ? t >> 32 : ~(-(t >> 32))+1
-            ret[A_Index] := t & 0xffffffff
+            carry := t < 0 ? ~(-(t >> 32))+1 : t >> 32
+            ret[A_Index] := Abs(t & 0xffffffff)
         }
         if carry
             ret.insert(carry)
@@ -100,6 +110,9 @@ class BigInt
         ; TODO: check N > D
         ; TODO: check D > 0
         ; TODO: check N > 0
+        if D.eq(0) {
+            return "Error: Can't divide by zero" 
+        }
         
         Q := new BigInt()
         shiftcnt := 0
@@ -139,7 +152,7 @@ class BigInt
         if n.__Class != "BigInt"
             n := new BigInt(n)
         if n.neg == -1
-            return "must be positive"
+            return "Error: Exponent must be positive."
         return BigInt._power(this, n)
     }
     
@@ -238,7 +251,7 @@ class BigInt
     
     }
     
-    rotl () {
+    rotl() {
     
     }
     
@@ -352,7 +365,7 @@ sign(x) {
 bin(x){
     if !x
         r := 0
-	while x
+	while x OR A_Index > 1
 		r:=1&x r,x>>=1
 	return r
 }
