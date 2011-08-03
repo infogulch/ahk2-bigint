@@ -41,11 +41,16 @@ Add:
     tests_not
     tests_div
     
-    check that functions that can take non-BigInt are able to
-    base conversion function. integrate it with __new()
-    alternate multiplication alg
+    Zero tests on all functions.
+    
+    Check that functions that should take non-BigInt are able to.
+    
+    Base conversion function. integrate it with __new().
+    
+    Alternate multiplication alg. ??
+    
+    tests for __new getting ahk number > 32 bits long
 Fix:
-    __new getting ahk number > 32 bits long
 */
 
 runUnitTests(new tests_sum())
@@ -170,6 +175,32 @@ class tests_sum {
         a.equals(res.neg, -1)
         a.true(x.eq(new BigInt(-8)))
         a.true(y.eq(new BigInt(-9)))
+    }
+    test_small10() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-8)
+        y := new BigInt(0)
+        
+        res := x.sum([y])
+        a.equals(res[1], 8)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt(-8)))
+        a.true(y.eq(new BigInt(0)))
+    }
+    test_small11() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(0)
+        y := new BigInt(0)
+        
+        res := x.sum([y])
+        a.equals(res[1], 0)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(0)))
+        a.true(y.eq(new BigInt(0)))
     }
     test_normal1() {
         global assert, BigInt
