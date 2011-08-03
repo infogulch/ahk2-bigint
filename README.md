@@ -34,6 +34,13 @@ These are the requirements for all changes.
   and other args, should be prefixed with one or more 
   underscores.
 
+ToDo
+----
+* I'm considering changing it so all functions have a counterpart
+  that does modify `this`. They would be prefixed with one
+  underscore, and of course have a non-`this`-modifying version
+  that acts exactly like the current functions.
+
 Usage Examples
 --------------
 
@@ -60,5 +67,3 @@ Take a really big number, and square it a bunch of times:
         x := x.pow(2)
         
     msgbox % x.__string()  ; this is a really really huge number
-
-Note that 
