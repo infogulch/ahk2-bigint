@@ -25,6 +25,10 @@ class Assert {
     static total_tests := 0
     static total_testgroups := 0
     static avg_time := ""
+    static total_assertions_passed := 0
+    static total_assertions_failed := 0
+    static total_tests_passed := 0
+    static total_tests_failed := 0
     
     equals( args* ) {
         name := args._maxindex() > 2 ? args.remove(1) : ""
@@ -80,6 +84,10 @@ class Assert {
         
         this.result := this.result == "" ? passed : passed AND this.result
         Assert.total_assertions++
+        if passed
+            Assert.total_assertions_passed++
+        else
+            Assert.total_assertions_failed++
     }
     
     __new( func, line, outputs ) {
@@ -96,6 +104,10 @@ class Assert {
     __delete() {
         global Assert
         Assert.avg_time := (A_TickCount-this.start + (Assert.avg_time OR 0)) / Assert.total_tests
+        if this.result
+            Assert.total_tests_passed++
+        else
+            Assert.total_tests_failed++
         for k,v in this.outputs
             v.(this.result, this.func, this.line, this.results)
     }
@@ -103,8 +115,8 @@ class Assert {
     Stats() {
         global Assert
         return "#TestGroups: " Assert.total_testgroups 
-             . "`n#Tests: " Assert.total_tests 
-             . "`n#Assertions: " Assert.total_assertions 
+             . "`n#Tests: " Assert.total_tests ". (" Assert.total_tests_passed " passed, " Assert.total_tests_failed " failed)"
+             . "`n#Assertions: " Assert.total_assertions ". (" Assert.total_assertions_passed " passed, " Assert.total_assertions_failed " failed)"
              . "`n" 
              . "`nAvg assertions per test: " Round(Assert.total_assertions / Assert.total_tests, 2) 
              . "`nAvg ms per test: " Round(Assert.avg_time, 3)
