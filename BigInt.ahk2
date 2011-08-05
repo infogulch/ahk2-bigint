@@ -15,7 +15,8 @@ class BigInt
                 ins.insert(0)
                 layers.insert(lay)
             }
-            ret := layers.remove().sum(layers)
+            ret := layers.remove()
+            ret._sum(layers)
             ret.neg := n.neg * this.neg
             return ret
         }
@@ -24,7 +25,7 @@ class BigInt
         if Abs(n) == 1
         {
             ret := this.clone()
-            ret.neg := ret.neg * sign(n)
+            ret.neg := ret.neg * n
             return ret
         }
         if this.abs().eq(1)
@@ -128,12 +129,12 @@ class BigInt
         ; TODO: check N > D
         ; TODO: check D > 0
         ; TODO: check N > 0
-        if D.eq(0) {
+        if D.eq(0) 
             return "Error: Can't divide by zero" 
-        }
         
         ;this := new BigInt(0)
-        this.remove(1,this._maxindex()), this.insert(0)
+        this.remove(1,this._maxindex())
+        this.insert(0)
         
         shiftcnt := 0
         while D.lt(N)
