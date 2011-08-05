@@ -3798,12 +3798,108 @@ class tests_div {
         a.equals(res[1], 100)
         a.equals(res.neg, 1)
         
-        a.equals(r._maxindex(1),1)
+        a.equals(r._maxindex(),1)
         a.equals(r[1],0)
         a.equals(r.neg, 1)
         
         a.true(x.eq(new BigInt(1000)))
         a.true(y.eq(new BigInt(10)))
+    }
+    test_small2() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-1000)
+        y := new BigInt(10)
+        
+        res := x.div(y,r)
+        
+        a.equals(res._maxindex(),1)
+        a.equals(res[1], 100)
+        a.equals(res.neg, -1)
+        
+        a.equals(r._maxindex(),1)
+        a.equals(r[1],0)
+        a.equals(r.neg, 1)
+        
+        a.true(x.eq(new BigInt(-1000)))
+        a.true(y.eq(new BigInt(10)))
+    }
+    test_small3() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(1000)
+        y := new BigInt(-10)
+        
+        res := x.div(y,r)
+        
+        a.equals(res._maxindex(),1)
+        a.equals(res[1], 100)
+        a.equals(res.neg, -1)
+        
+        a.equals(r._maxindex(),1)
+        a.equals(r[1],0)
+        a.equals(r.neg, 1)
+        
+        a.true(x.eq(new BigInt(1000)))
+        a.true(y.eq(new BigInt(-10)))
+    }
+    test_small4() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(1000)
+        y := new BigInt(15)
+        
+        res := x.div(y,r)
+        
+        a.equals(res._maxindex(),1)
+        a.equals(res[1], 66)
+        a.equals(res.neg, 1)
+        
+        a.equals(r._maxindex(),1)
+        a.equals(r[1],10)
+        a.equals(r.neg, 1)
+        
+        a.true(x.eq(new BigInt(1000)))
+        a.true(y.eq(new BigInt(15)))
+    }
+    test_small5() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(2132546546)
+        y := new BigInt(58)
+        
+        res := x.div(y,r)
+        
+        a.equals(res._maxindex(),1)
+        a.equals(res[1], 36768043)
+        a.equals(res.neg, 1)
+        
+        a.equals(r._maxindex(),1)
+        a.equals(r[1],52)
+        a.equals(r.neg, 1)
+        
+        a.true(x.eq(new BigInt(2132546546)))
+        a.true(y.eq(new BigInt(58)))
+    }
+    test_normal1() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("1000000000","hex")
+        y := new BigInt(2)
+        
+        res := x.div(y,r)
+        
+        a.equals(res._maxindex(),2)
+        a.equals(res[1], 0)
+        a.equals(res[2], 1)
+        a.equals(res.neg, 1)
+        
+        a.equals(r._maxindex(),1)
+        a.equals(r[1],0)
+        a.equals(r.neg, 1)
+        
+        a.true(x.eq(new BigInt("1000000000","hex")))
+        a.true(y.eq(new BigInt(2)))
     }
 }
 
