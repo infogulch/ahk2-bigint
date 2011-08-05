@@ -106,7 +106,7 @@ class BigInt
     
     div( D, ByRef R = 0 ) {
         ret := this.clone()
-        ret._div(D,R)
+        ErrorLevel := IsByRef(R) ? ret._div(D,R) : ret._div(D)
         return ret
     }
     
@@ -132,7 +132,9 @@ class BigInt
             return "Error: Can't divide by zero" 
         }
         
-        this := Q := new BigInt()
+        ;this := new BigInt(0)
+        this.remove(1,this._maxindex()), this.insert(0)
+        
         shiftcnt := 0
         while D.lt(N)
             D._shl(), shiftcnt++
@@ -142,16 +144,17 @@ class BigInt
         if shiftcnt >= 0
             loop shiftcnt+1
             {
-                Q._shl()
+                this._shl()
                 if D.lteq(N)
                 {
                     N._sub(D)
-                    Q._add(1)
+                    this._add(1)
                 }
                 D._shr()
             }
-        R := iN.sub(iD.mult(Q))
-        Q.neg := neg
+        if IsByRef(R)
+            R := iN.sub(iD.mult(this))
+        this.neg := neg
     }
     
     maxbit() {
@@ -337,22 +340,27 @@ class BigInt
     }
     
     _trim() {
+        ; delete leading zeros
         while this[this._maxindex()] == 0 AND this._maxindex() != 1
             this.remove()
+        ; zero cannot be negative
         if this._maxindex() == 1 AND this[1] == 0
             this.neg := 1
     }
     
-    __new( x = 0, method = '' ) {
-        if method = ''
+    __new( ByRef x = 0, options = '', chars = '' ) {
+        ; support options:
+        ;   x is bytearray (must be byref)(big or little edian)
+        ;   
+        if options == ''
         {
-            this.neg := x < 0 ? -1 : 1
+            this.neg := sign(x)
             carry := Abs(Floor(x)) >> 32
             this[1] := Abs(Floor(x)) & 0xffffffff
             if carry
                 this[2] := carry
         }
-        if method = 'hex'
+        if options = 'hex'
         {
             this.neg := substr(x,1,1) == '-' ? -1 : 1
             this[1] := 0
@@ -368,6 +376,7 @@ class BigInt
             }
         }
         this._trim()
+        return this
     }
     
     __string( format = "hex" ) {
