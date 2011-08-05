@@ -1,13 +1,29 @@
+base2  := "1111101000"
+base3  := "1101001"
+base4  := "33220"
+base5  := "13000"
+base6  := "4344"
+base7  := "2626"
+base8  := "1750"
+base9  := "1331"
+base10 := "1000"
+base11 := "82a"
+base12 := "6b4"
+base13 := "5bc"
+base14 := "516"
+base15 := "46a"
+base16 := "3e8"
 
+base58chars := "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 addr58 := "1Hdbo1Pa3Vg6ytyXF9bEx4tzZbRUAjPMfE"
-addr16 := "04834cb92ea834ba4ebf4fc1aaaa2dc24d134d07b62945ee469c4ddc55d6df97fabc09f10a881420c906ac581e7f984fe915b80a89a8d704ecd0075f58bb990f66"
 
+x := fromanybase(addr58, 58, base58chars)
 
-base58 := "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+msgbox % x.__string()
 
-msgbox % "_" fromanybase(addr58, 58, base58).__string() "_`n`n_" addr16 "_"
+msgbox % toanybase(x, 58, base58chars)
 
-fromanybase( str, base, chars = "" ) {
+fromanybase( str, base, chars = "", opt = "big i" ) {
     global BigInt
     base := new BigInt(base)
     ret := new BigInt(0)
@@ -15,11 +31,28 @@ fromanybase( str, base, chars = "" ) {
     {
         c := SubStr(str, -A_Index, 1)
         num := InStr(chars, c, 1)-1
+        if num < 0
+            return "Error: unexpected character"
         val := (new BigInt(num)).mult(base.pow(A_Index-1))
-        ret.add(val)
-        msgbox % c "`n" num "`n" val.__string() "`n" ret.__string()
+        ret._add(val)
+    }
+    return ret
+}
+
+toanybase( this, base, chars = "" ) {
+    global BigInt
+    if base.__class != "BigInt"
+        base := new BigInt(base)
+    x := this.clone()
+    while x.noteq(0)
+    {
+        x._div(base, rem)
+        msgbox % viewobj(x) "`n`n" viewobj(rem)
+        ret := substr(chars, rem[1]+1, 1) ret
     }
     return ret
 }
 
 #include BigInt.ahk2
+ExitApp
+Esc::ExitApp
