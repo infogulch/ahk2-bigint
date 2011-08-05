@@ -55,7 +55,7 @@ Fix:
 
 runUnitTests(new tests_sum())
 class tests_sum {
-    var outputmethods := [func("output_msgbox")]
+    outputmethods := [func("output_msgbox")]
     test_small1() {
         global assert, BigInt
         a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
@@ -192,6 +192,45 @@ class tests_sum {
     test_small11() {
         global assert, BigInt
         a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(8)
+        y := new BigInt(0)
+        
+        res := x.sum([y])
+        a.equals(res[1], 8)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(8)))
+        a.true(y.eq(new BigInt(0)))
+    }
+    test_small12() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(0)
+        y := new BigInt(-9)
+        
+        res := x.sum([y])
+        a.equals(res[1], 9)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt(0)))
+        a.true(y.eq(new BigInt(-9)))
+    }
+    test_small13() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(0)
+        y := new BigInt(9)
+        
+        res := x.sum([y])
+        a.equals(res[1], 9)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(0)))
+        a.true(y.eq(new BigInt(9)))
+    }
+    test_small14() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
         x := new BigInt(0)
         y := new BigInt(0)
         
@@ -317,7 +356,7 @@ class tests_sum {
 
 runUnitTests(new tests_add())
 class tests_add {
-    var outputmethods := [func("output_msgbox")]
+    outputmethods := [func("output_msgbox")]
     test_Basic1() {
         global assert, BigInt
         a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
@@ -550,7 +589,7 @@ class tests_add {
 
 runUnitTests(new tests_sub())
 class tests_sub {
-    var outputmethods := [func("output_msgbox")]
+    outputmethods := [func("output_msgbox")]
     test_Basic1() {
         global assert, BigInt
         a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
@@ -797,7 +836,7 @@ class tests_sub {
 
 runUnitTests(new tests_eq())
 class tests_eq {
-    var outputmethods := [func("output_msgbox")]
+    outputmethods := [func("output_msgbox")]
     
     test_small_left() {
         global assert, BigInt
@@ -1404,7 +1443,7 @@ class tests_eq {
 
 runUnitTests(new tests_new())
 class tests_new {
-    var outputmethods := [func("output_msgbox")]
+    outputmethods := [func("output_msgbox")]
     
     test_default() {
         global assert, BigInt
@@ -1419,7 +1458,7 @@ class tests_new {
 
 runUnitTests(new tests_noteq())
 class tests_noteq {
-    var outputmethods := [func("output_msgbox")]
+    outputmethods := [func("output_msgbox")]
     test_small_left() {
         global assert, BigInt
         a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
@@ -1765,7 +1804,7 @@ class tests_noteq {
 
 runUnitTests(new tests_gt())
 class tests_gt {
-    var outputmethods := [func("output_msgbox")]
+    outputmethods := [func("output_msgbox")]
     test_small_left() {
         global assert, BigInt
         a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
@@ -2111,7 +2150,7 @@ class tests_gt {
 
 runUnitTests(new tests_gteq())
 class tests_gteq {
-    var outputmethods := [func("output_msgbox")]
+    outputmethods := [func("output_msgbox")]
     test_small_left() {
         global assert, BigInt
         a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
@@ -2457,7 +2496,7 @@ class tests_gteq {
 
 runUnitTests(new tests_lt())
 class tests_lt {
-    var outputmethods := [func("output_msgbox")]
+    outputmethods := [func("output_msgbox")]
     test_small_left() {
         global assert, BigInt
         a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
@@ -2803,7 +2842,7 @@ class tests_lt {
 
 runUnitTests(new tests_lteq())
 class tests_lteq {
-    var outputmethods := [func("output_msgbox")]
+    outputmethods := [func("output_msgbox")]
     test_small_left() {
         global assert, BigInt
         a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
@@ -3150,7 +3189,7 @@ class tests_lteq {
 
 runUnitTests(new tests_mult())
 class tests_mult {
-    var outputmethods := [func("output_msgbox")]
+    outputmethods := [func("output_msgbox")]
     test_small1() {
         global assert, BigInt
         a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
@@ -3266,7 +3305,7 @@ class tests_mult {
 
 runUnitTests(new tests_shr())
 class tests_shr {
-    var outputmethods := [func("output_msgbox")]
+    outputmethods := [func("output_msgbox")]
     test_small() {
         global assert, BigInt
         a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
@@ -3437,7 +3476,7 @@ class tests_shr {
 
 runUnitTests(new tests_shl())
 class tests_shl {
-    var outputmethods := [func("output_msgbox")]
+    outputmethods := [func("output_msgbox")]
     test_small() {
         global assert, BigInt
         a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
@@ -3615,7 +3654,7 @@ class tests_shl {
 
 runUnitTests(new tests_pow())
 class tests_pow {
-    var outputmethods := [func("output_msgbox")]
+    outputmethods := [func("output_msgbox")]
     test_small1() {
         global assert, BigInt
         a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
@@ -3744,6 +3783,30 @@ class tests_pow {
     }
 }
 
+runUnitTests(new tests_div())
+class tests_div {
+    outputmethods := [func("output_msgbox")]
+    test_small1() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(1000)
+        y := new BigInt(10)
+        
+        res := x.div(y,r)
+        
+        a.equals(res._maxindex(),1)
+        a.equals(res[1], 100)
+        a.equals(res.neg, 1)
+        
+        a.equals(r._maxindex(1),1)
+        a.equals(r[1],0)
+        a.equals(r.neg, 1)
+        
+        a.true(x.eq(new BigInt(1000)))
+        a.true(y.eq(new BigInt(10)))
+    }
+}
+
 msgbox, , , % "Done!`n`n`n" Assert.Stats(), 8
 
 ExitApp
@@ -3757,9 +3820,11 @@ Esc::ExitApp
         global assert, BigInt
         a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
         x := new BigInt()
-        a.true(x.eq(new BigInt()))
         y := new BigInt()
-        a.true(y.eq(new BigInt()))
+        
         ;res := x.
+        
+        a.true(x.eq(new BigInt()))
+        a.true(y.eq(new BigInt()))
     }
 */
