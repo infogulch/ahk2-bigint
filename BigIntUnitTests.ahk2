@@ -56,787 +56,6 @@ Add:
 Fix:
 */
 
-runUnitTests(new tests_sum())
-class tests_sum {
-    outputmethods := [func("output_msgbox")]
-    test_small1() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(9)
-        y := new BigInt(8)
-        
-        res := x.sum([y])
-        a.equals(res[1], 17)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        
-        a.true(x.eq(new BigInt(9)))
-        a.true(y.eq(new BigInt(8)))
-    }
-    test_small2() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(-9)
-        y := new BigInt(8)
-        
-        res := x.sum([y])
-        a.equals(res[1],1)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, -1) 
-        
-        a.true(x.eq(new BigInt(-9)))
-        a.true(y.eq(new BigInt(8)))
-    }
-    test_small3() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(9)
-        y := new BigInt(-8)
-        
-        res := x.sum([y])
-        a.equals(res[1],1)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        
-        a.true(x.eq(new BigInt(9)))
-        a.true(y.eq(new BigInt(-8)))
-    }   
-    test_small4() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(-9)
-        y := new BigInt(-8)
-        
-        res := x.sum([y])
-        a.equals(res[1],17)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt(-9)))
-        a.true(y.eq(new BigInt(-8)))
-    }
-    test_small5() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(8)
-        y := new BigInt(9)
-        
-        res := x.sum([y])
-        a.equals(res[1],17)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt(8)))
-        a.true(y.eq(new BigInt(9)))
-    }   
-    test_small6() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(-8)
-        y := new BigInt(9)
-        
-        res := x.sum([y])
-        a.equals(res[1], 1)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt(-8)))
-        a.true(y.eq(new BigInt(9)))
-    }
-    test_small7() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(8)
-        y := new BigInt(-9)
-        
-        res := x.sum([y])
-        a.equals(res[1], 1)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt(8)))
-        a.true(y.eq(new BigInt(-9)))
-    }
-    test_small8() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(-8)
-        y := new BigInt(-9)
-        
-        res := x.sum([y])
-        a.equals(res[1], 17)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt(-8)))
-        a.true(y.eq(new BigInt(-9)))
-    }
-    test_small9() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(-8)
-        y := new BigInt(-9)
-        
-        res := x.sum([y])
-        a.equals(res[1], 17)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt(-8)))
-        a.true(y.eq(new BigInt(-9)))
-    }
-    test_small10() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(-8)
-        y := new BigInt(0)
-        
-        res := x.sum([y])
-        a.equals(res[1], 8)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt(-8)))
-        a.true(y.eq(new BigInt(0)))
-    }
-    test_small11() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(8)
-        y := new BigInt(0)
-        
-        res := x.sum([y])
-        a.equals(res[1], 8)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt(8)))
-        a.true(y.eq(new BigInt(0)))
-    }
-    test_small12() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(0)
-        y := new BigInt(-9)
-        
-        res := x.sum([y])
-        a.equals(res[1], 9)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt(0)))
-        a.true(y.eq(new BigInt(-9)))
-    }
-    test_small13() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(0)
-        y := new BigInt(9)
-        
-        res := x.sum([y])
-        a.equals(res[1], 9)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt(0)))
-        a.true(y.eq(new BigInt(9)))
-    }
-    test_small14() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(0)
-        y := new BigInt(0)
-        
-        res := x.sum([y])
-        a.equals(res[1], 0)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt(0)))
-        a.true(y.eq(new BigInt(0)))
-    }
-    test_normal1() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("200000000", "hex")
-        y := new BigInt(1)
-        
-        res := x.sum([y])
-        a.equals(res[1], 1)
-        a.equals(res[2], 2)
-        a.equals(res._maxindex(), 2)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("200000000", "hex")))
-        a.true(y.eq(new BigInt(1)))
-    }
-    test_normal2() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("100000000", "hex")
-        y := new BigInt(-1)
-        
-        res := x.sum([y])
-        a.equals(res[1], 0xffffffff )
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("100000000", "hex")))
-        a.true(y.eq(new BigInt(-1)))
-    }
-    test_normal3() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("100000000", "hex")
-        y := new BigInt("100000000", "hex")
-        
-        res := x.sum([y])
-        a.equals(res[1], 0)
-        a.equals(res[2], 2)
-        a.equals(res._maxindex(), 2)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("100000000", "hex")))
-        a.true(y.eq(new BigInt("100000000", "hex")))
-    }
-    test_normal4() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("100000000", "hex")
-        y := new BigInt("-100000000", "hex")
-        
-        res := x.sum([y])
-        a.equals(res[1], 0)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("100000000", "hex")))
-        a.true(y.eq(new BigInt("-100000000", "hex")))
-    }
-    test_normal5() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("-100000000", "hex")
-        y := new BigInt("100000000", "hex")
-        
-        res := x.sum([y])
-        a.equals(res[1], 0)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("-100000000", "hex")))
-        a.true(y.eq(new BigInt("100000000", "hex")))
-    }
-    test_normal6() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("-100000000", "hex")
-        y := new BigInt("-100000000", "hex")
-        
-        res := x.sum([y])
-        a.equals(res[1], 0)
-        a.equals(res[2], 2)
-        a.equals(res._maxindex(), 2)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt("-100000000", "hex")))
-        a.true(y.eq(new BigInt("-100000000", "hex")))
-    }
-    test_normal7() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("20000000000000000", "hex")
-        y := new BigInt("-100000000", "hex")
-        
-        res := x.sum([y])
-        a.equals(res[1], 0)
-        a.equals(res[2], 0xffffffff)
-        a.equals(res[3], 1)
-        a.equals(res._maxindex(), 3)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("20000000000000000", "hex")))
-        a.true(y.eq(new BigInt("-100000000", "hex")))
-    }
-    test_normal8() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("20000000000000000", "hex")
-        y := new BigInt("-100000001", "hex")
-        
-        res := x.sum([y])
-        a.equals(res[1], 0xffffffff)
-        a.equals(res[2], 0xfffffffe)
-        a.equals(res[3], 1)
-        a.equals(res._maxindex(), 3)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("20000000000000000", "hex")))
-        a.true(y.eq(new BigInt("-100000001", "hex")))
-    }
-}
-
-runUnitTests(new tests_add())
-class tests_add {
-    outputmethods := [func("output_msgbox")]
-    test_Basic1() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(9)
-        y := new BigInt(8)
-        
-        res := x.add(y)
-        a.equals(res[1], 17)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt(9)))
-        a.true(y.eq(new BigInt(8)))
-    }
-    test_Basic2() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(-9)
-        y := new BigInt(8)
-        
-        res := x.add(y)
-        a.equals(res[1],1)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt(-9)))
-        a.true(y.eq(new BigInt(8)))
-    }
-    test_Basic3() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(9)
-        y := new BigInt(-8)
-        
-        res := x.add(y)
-        a.equals(res[1],1)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt(9)))
-        a.true(y.eq(new BigInt(-8)))
-    }   
-    test_Basic4() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(-9)
-        y := new BigInt(-8)
-        
-        res := x.add(y)
-        a.equals(res[1],17)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt(-9)))
-        a.true(y.eq(new BigInt(-8)))
-    }
-    test_Basic5() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(8)
-        y := new BigInt(9)
-        
-        res := x.add(y)
-        a.equals(res[1],17)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt(8)))
-        a.true(y.eq(new BigInt(9)))
-    }   
-    test_Basic6() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(-8)
-        y := new BigInt(9)
-        
-        res := x.add(y)
-        a.equals(res[1], 1)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt(-8)))
-        a.true(y.eq(new BigInt(9)))
-    }
-    test_Basic7() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(8)
-        y := new BigInt(-9)
-        
-        res := x.add(y)
-        a.equals(res[1], 1)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt(8)))
-        a.true(y.eq(new BigInt(-9)))
-    }
-    test_Basic8() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(-8)
-        y := new BigInt(-9)
-        
-        res := x.add(y)
-        a.equals(res[1], 17)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt(-8)))
-        a.true(y.eq(new BigInt(-9)))
-    }
-    test_Basic9() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(-8)
-        y := new BigInt(-9)
-        
-        res := x.add(y)
-        a.equals(res[1], 17)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt(-8)))
-        a.true(y.eq(new BigInt(-9)))
-    }
-    test_normal1() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("200000000", "hex")
-        y := new BigInt(1)
-        
-        res := x.add(y)
-        a.equals(res[1], 1)
-        a.equals(res[2], 2)
-        a.equals(res._maxindex(), 2)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("200000000", "hex")))
-        a.true(y.eq(new BigInt(1)))
-    }
-    test_normal2() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("100000000", "hex")
-        y := new BigInt(-1)
-        
-        res := x.add(y)
-        a.equals(res[1], 0xffffffff )
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("100000000", "hex")))
-        a.true(y.eq(new BigInt(-1)))
-    }
-    test_normal3() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("100000000", "hex")
-        y := new BigInt("100000000", "hex")
-        
-        res := x.add(y)
-        a.equals(res[1], 0)
-        a.equals(res[2], 2)
-        a.equals(res._maxindex(), 2)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("100000000", "hex")))
-        a.true(y.eq(new BigInt("100000000", "hex")))
-    }
-    test_normal4() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("100000000", "hex")
-        y := new BigInt("-100000000", "hex")
-        
-        res := x.add(y)
-        a.equals(res[1], 0)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("100000000", "hex")))
-        a.true(y.eq(new BigInt("-100000000", "hex")))
-    }
-    test_normal5() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("-100000000", "hex")
-        y := new BigInt("100000000", "hex")
-        
-        res := x.add(y)
-        a.equals(res[1], 0)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("-100000000", "hex")))
-        a.true(y.eq(new BigInt("100000000", "hex")))
-    }
-    test_normal6() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("-100000000", "hex")
-        y := new BigInt("-100000000", "hex")
-        
-        res := x.add(y)
-        a.equals(res[1], 0)
-        a.equals(res[2], 2)
-        a.equals(res._maxindex(), 2)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt("-100000000", "hex")))
-        a.true(y.eq(new BigInt("-100000000", "hex")))
-    }
-    test_normal7() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("20000000000000000", "hex")
-        y := new BigInt("-100000000", "hex")
-        
-        res := x.add(y)
-        a.equals(res[1], 0)
-        a.equals(res[2], 0xffffffff)
-        a.equals(res[3], 1)
-        a.equals(res._maxindex(), 3)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("20000000000000000", "hex")))
-        a.true(y.eq(new BigInt("-100000000", "hex")))
-    }
-    test_normal8() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("20000000000000000", "hex")
-        y := new BigInt("-100000001", "hex")
-        
-        res := x.add(y)
-        a.equals(res[1], 0xffffffff)
-        a.equals(res[2], 0xfffffffe)
-        a.equals(res[3], 1)
-        a.equals(res._maxindex(), 3)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("20000000000000000", "hex")))
-        a.true(y.eq(new BigInt("-100000001", "hex")))
-    }
-}
-
-runUnitTests(new tests_sub())
-class tests_sub {
-    outputmethods := [func("output_msgbox")]
-    test_Basic1() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(9)
-        y := new BigInt(8)
-        
-        res := x.sub(y)
-        a.equals(res[1], 1)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt(9)))
-        a.true(y.eq(new BigInt(8)))
-    }
-    test_Basic2() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(-9)
-        y := new BigInt(8)
-        
-        res := x.sub(y)
-        a.equals(res[1],17)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt(-9)))
-        a.true(y.eq(new BigInt(8)))
-    }
-    test_Basic3() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(9)
-        y := new BigInt(-8)
-        
-        res := x.sub(y)
-        a.equals(res[1],17)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt(9)))
-        a.true(y.eq(new BigInt(-8)))
-    }   
-    test_Basic4() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(-9)
-        y := new BigInt(-8)
-        
-        res := x.sub(y)
-        a.equals(res[1],1)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt(-9)))
-        a.true(y.eq(new BigInt(-8)))
-    }
-    test_Basic5() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(8)
-        y := new BigInt(9)
-        
-        res := x.sub(y)
-        a.equals(res[1],1)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt(8)))
-        a.true(y.eq(new BigInt(9)))
-    }   
-    test_Basic6() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(-8)
-        y := new BigInt(9)
-        
-        res := x.sub(y)
-        a.equals(res[1], 17)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt(-8)))
-        a.true(y.eq(new BigInt(9)))
-    }
-    test_Basic7() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(8)
-        y := new BigInt(-9)
-        
-        res := x.sub(y)
-        a.equals(res[1], 17)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt(8)))
-        a.true(y.eq(new BigInt(-9)))
-    }
-    test_Basic8() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(-8)
-        y := new BigInt(-9)
-        
-        res := x.sub(y)
-        a.equals(res[1], 1)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt(-8)))
-        a.true(y.eq(new BigInt(-9)))
-    }
-    test_Basic9() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(-8)
-        y := new BigInt(-9)
-        
-        res := x.sub(y)
-        a.equals(res[1], 1)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt(-8)))
-        a.true(y.eq(new BigInt(-9)))
-    }
-    test_Basic10() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt(12)
-        y := new BigInt(8)
-        
-        res := x.sub(y)
-        a.equals(res[1], 4)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt(12)))
-        a.true(y.eq(new BigInt(8)))
-    }
-    test_normal1() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("200000000", "hex")
-        y := new BigInt(1)
-        
-        res := x.sub(y)
-        a.equals(res[1], 0xffffffff)
-        a.equals(res[2], 1)
-        a.equals(res._maxindex(), 2)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("200000000", "hex")))
-        a.true(y.eq(new BigInt(1)))
-    }
-    test_normal2() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("100000000", "hex")
-        y := new BigInt(-1)
-        
-        res := x.sub(y)
-        a.equals(res[1], 1 )
-        a.equals(res[2], 1 )
-        a.equals(res._maxindex(), 2)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("100000000", "hex")))
-        a.true(y.eq(new BigInt(-1)))
-    }
-    test_normal3() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("100000000", "hex")
-        y := new BigInt("100000000", "hex")
-        
-        res := x.sub(y)
-        a.equals(res[1], 0)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("100000000", "hex")))
-        a.true(y.eq(new BigInt("100000000", "hex")))
-    }
-    test_normal4() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("100000000", "hex")
-        y := new BigInt("-100000000", "hex")
-        
-        res := x.sub(y)
-        a.equals(res[1], 0)
-        a.equals(res[2], 2)
-        a.equals(res._maxindex(), 2)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("100000000", "hex")))
-        a.true(y.eq(new BigInt("-100000000", "hex")))
-    }
-    test_normal5() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("-100000000", "hex")
-        y := new BigInt( "100000000", "hex")
-        
-        res := x.sub(y)
-        a.equals(res[1], 0)
-        a.equals(res[2], 2)
-        a.equals(res._maxindex(), 2)
-        a.equals(res.neg, -1)
-        a.true(x.eq(new BigInt("-100000000", "hex")))
-        a.true(y.eq(new BigInt( "100000000", "hex")))
-    }
-    test_normal6() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("-100000000", "hex")
-        y := new BigInt("-100000000", "hex")
-        
-        res := x.sub(y)
-        a.equals(res[1], 0)
-        a.equals(res._maxindex(), 1)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("-100000000", "hex")))
-        a.true(y.eq(new BigInt("-100000000", "hex")))
-    }
-    test_normal7() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("20000000000000000", "hex")
-        y := new BigInt("-100000000", "hex")
-        
-        res := x.sub(y)
-        a.equals(res[1], 0)
-        a.equals(res[2], 1)
-        a.equals(res[3], 2)
-        a.equals(res._maxindex(), 3)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("20000000000000000", "hex")))
-        a.true(y.eq(new BigInt("-100000000", "hex")))
-    }
-    test_normal8() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("20000000000000000", "hex")
-        y := new BigInt("-100000001", "hex")
-
-        res := x.sub(y)
-        a.equals(res[1], 1)
-        a.equals(res[2], 1)
-        a.equals(res[3], 2)
-        a.equals(res._maxindex(), 3)
-        a.equals(res.neg, 1)
-        a.true(x.eq(new BigInt("20000000000000000", "hex")))
-        a.true(y.eq(new BigInt("-100000001", "hex")))
-    }
-}
-
 runUnitTests(new tests_eq())
 class tests_eq {
     outputmethods := [func("output_msgbox")]
@@ -1442,21 +661,6 @@ class tests_eq {
         a.equals(y.neg, -1)
     }
 
-}
-
-runUnitTests(new tests_new())
-class tests_new {
-    outputmethods := [func("output_msgbox")]
-    
-    test_default() {
-        global assert, BigInt
-        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
-        x := new BigInt("acd6820def48327", "hex")
-        a.equals(x[1], 0xdef48327)
-        a.equals(x[2], 0xacd6820)
-        a.equals(x.neg, 1)
-    }
-    
 }
 
 runUnitTests(new tests_noteq())
@@ -3188,6 +2392,802 @@ class tests_lteq {
         a.true(x.eq(new BigInt("-200000000","hex")))
         a.true(y.eq(new BigInt("-1000","hex")))
     }
+}
+
+runUnitTests(new tests_sum())
+class tests_sum {
+    outputmethods := [func("output_msgbox")]
+    test_small1() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(9)
+        y := new BigInt(8)
+        
+        res := x.sum([y])
+        a.equals(res[1], 17)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        
+        a.true(x.eq(new BigInt(9)))
+        a.true(y.eq(new BigInt(8)))
+    }
+    test_small2() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-9)
+        y := new BigInt(8)
+        
+        res := x.sum([y])
+        a.equals(res[1],1)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1) 
+        
+        a.true(x.eq(new BigInt(-9)))
+        a.true(y.eq(new BigInt(8)))
+    }
+    test_small3() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(9)
+        y := new BigInt(-8)
+        
+        res := x.sum([y])
+        a.equals(res[1],1)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        
+        a.true(x.eq(new BigInt(9)))
+        a.true(y.eq(new BigInt(-8)))
+    }   
+    test_small4() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-9)
+        y := new BigInt(-8)
+        
+        res := x.sum([y])
+        a.equals(res[1],17)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt(-9)))
+        a.true(y.eq(new BigInt(-8)))
+    }
+    test_small5() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(8)
+        y := new BigInt(9)
+        
+        res := x.sum([y])
+        a.equals(res[1],17)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(8)))
+        a.true(y.eq(new BigInt(9)))
+    }   
+    test_small6() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-8)
+        y := new BigInt(9)
+        
+        res := x.sum([y])
+        a.equals(res[1], 1)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(-8)))
+        a.true(y.eq(new BigInt(9)))
+    }
+    test_small7() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(8)
+        y := new BigInt(-9)
+        
+        res := x.sum([y])
+        a.equals(res[1], 1)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt(8)))
+        a.true(y.eq(new BigInt(-9)))
+    }
+    test_small8() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-8)
+        y := new BigInt(-9)
+        
+        res := x.sum([y])
+        a.equals(res[1], 17)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt(-8)))
+        a.true(y.eq(new BigInt(-9)))
+    }
+    test_small9() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-8)
+        y := new BigInt(-9)
+        
+        res := x.sum([y])
+        a.equals(res[1], 17)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt(-8)))
+        a.true(y.eq(new BigInt(-9)))
+    }
+    test_small10() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-8)
+        y := new BigInt(0)
+        
+        res := x.sum([y])
+        a.equals(res[1], 8)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt(-8)))
+        a.true(y.eq(new BigInt(0)))
+    }
+    test_small11() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(8)
+        y := new BigInt(0)
+        
+        res := x.sum([y])
+        a.equals(res[1], 8)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(8)))
+        a.true(y.eq(new BigInt(0)))
+    }
+    test_small12() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(0)
+        y := new BigInt(-9)
+        
+        res := x.sum([y])
+        a.equals(res[1], 9)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt(0)))
+        a.true(y.eq(new BigInt(-9)))
+    }
+    test_small13() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(0)
+        y := new BigInt(9)
+        
+        res := x.sum([y])
+        a.equals(res[1], 9)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(0)))
+        a.true(y.eq(new BigInt(9)))
+    }
+    test_small14() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(0)
+        y := new BigInt(0)
+        
+        res := x.sum([y])
+        a.equals(res[1], 0)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(0)))
+        a.true(y.eq(new BigInt(0)))
+    }
+    test_normal1() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("200000000", "hex")
+        y := new BigInt(1)
+        
+        res := x.sum([y])
+        a.equals(res[1], 1)
+        a.equals(res[2], 2)
+        a.equals(res._maxindex(), 2)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("200000000", "hex")))
+        a.true(y.eq(new BigInt(1)))
+    }
+    test_normal2() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("100000000", "hex")
+        y := new BigInt(-1)
+        
+        res := x.sum([y])
+        a.equals(res[1], 0xffffffff )
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("100000000", "hex")))
+        a.true(y.eq(new BigInt(-1)))
+    }
+    test_normal3() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("100000000", "hex")
+        y := new BigInt("100000000", "hex")
+        
+        res := x.sum([y])
+        a.equals(res[1], 0)
+        a.equals(res[2], 2)
+        a.equals(res._maxindex(), 2)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("100000000", "hex")))
+        a.true(y.eq(new BigInt("100000000", "hex")))
+    }
+    test_normal4() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("100000000", "hex")
+        y := new BigInt("-100000000", "hex")
+        
+        res := x.sum([y])
+        a.equals(res[1], 0)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("100000000", "hex")))
+        a.true(y.eq(new BigInt("-100000000", "hex")))
+    }
+    test_normal5() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("-100000000", "hex")
+        y := new BigInt("100000000", "hex")
+        
+        res := x.sum([y])
+        a.equals(res[1], 0)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("-100000000", "hex")))
+        a.true(y.eq(new BigInt("100000000", "hex")))
+    }
+    test_normal6() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("-100000000", "hex")
+        y := new BigInt("-100000000", "hex")
+        
+        res := x.sum([y])
+        a.equals(res[1], 0)
+        a.equals(res[2], 2)
+        a.equals(res._maxindex(), 2)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt("-100000000", "hex")))
+        a.true(y.eq(new BigInt("-100000000", "hex")))
+    }
+    test_normal7() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("20000000000000000", "hex")
+        y := new BigInt("-100000000", "hex")
+        
+        res := x.sum([y])
+        a.equals(res[1], 0)
+        a.equals(res[2], 0xffffffff)
+        a.equals(res[3], 1)
+        a.equals(res._maxindex(), 3)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("20000000000000000", "hex")))
+        a.true(y.eq(new BigInt("-100000000", "hex")))
+    }
+    test_normal8() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("20000000000000000", "hex")
+        y := new BigInt("-100000001", "hex")
+        
+        res := x.sum([y])
+        a.equals(res[1], 0xffffffff)
+        a.equals(res[2], 0xfffffffe)
+        a.equals(res[3], 1)
+        a.equals(res._maxindex(), 3)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("20000000000000000", "hex")))
+        a.true(y.eq(new BigInt("-100000001", "hex")))
+    }
+}
+
+runUnitTests(new tests_add())
+class tests_add {
+    outputmethods := [func("output_msgbox")]
+    test_Basic1() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(9)
+        y := new BigInt(8)
+        
+        res := x.add(y)
+        a.equals(res[1], 17)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(9)))
+        a.true(y.eq(new BigInt(8)))
+    }
+    test_Basic2() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-9)
+        y := new BigInt(8)
+        
+        res := x.add(y)
+        a.equals(res[1],1)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt(-9)))
+        a.true(y.eq(new BigInt(8)))
+    }
+    test_Basic3() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(9)
+        y := new BigInt(-8)
+        
+        res := x.add(y)
+        a.equals(res[1],1)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(9)))
+        a.true(y.eq(new BigInt(-8)))
+    }   
+    test_Basic4() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-9)
+        y := new BigInt(-8)
+        
+        res := x.add(y)
+        a.equals(res[1],17)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt(-9)))
+        a.true(y.eq(new BigInt(-8)))
+    }
+    test_Basic5() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(8)
+        y := new BigInt(9)
+        
+        res := x.add(y)
+        a.equals(res[1],17)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(8)))
+        a.true(y.eq(new BigInt(9)))
+    }   
+    test_Basic6() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-8)
+        y := new BigInt(9)
+        
+        res := x.add(y)
+        a.equals(res[1], 1)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(-8)))
+        a.true(y.eq(new BigInt(9)))
+    }
+    test_Basic7() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(8)
+        y := new BigInt(-9)
+        
+        res := x.add(y)
+        a.equals(res[1], 1)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt(8)))
+        a.true(y.eq(new BigInt(-9)))
+    }
+    test_Basic8() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-8)
+        y := new BigInt(-9)
+        
+        res := x.add(y)
+        a.equals(res[1], 17)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt(-8)))
+        a.true(y.eq(new BigInt(-9)))
+    }
+    test_Basic9() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-8)
+        y := new BigInt(-9)
+        
+        res := x.add(y)
+        a.equals(res[1], 17)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt(-8)))
+        a.true(y.eq(new BigInt(-9)))
+    }
+    test_normal1() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("200000000", "hex")
+        y := new BigInt(1)
+        
+        res := x.add(y)
+        a.equals(res[1], 1)
+        a.equals(res[2], 2)
+        a.equals(res._maxindex(), 2)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("200000000", "hex")))
+        a.true(y.eq(new BigInt(1)))
+    }
+    test_normal2() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("100000000", "hex")
+        y := new BigInt(-1)
+        
+        res := x.add(y)
+        a.equals(res[1], 0xffffffff )
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("100000000", "hex")))
+        a.true(y.eq(new BigInt(-1)))
+    }
+    test_normal3() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("100000000", "hex")
+        y := new BigInt("100000000", "hex")
+        
+        res := x.add(y)
+        a.equals(res[1], 0)
+        a.equals(res[2], 2)
+        a.equals(res._maxindex(), 2)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("100000000", "hex")))
+        a.true(y.eq(new BigInt("100000000", "hex")))
+    }
+    test_normal4() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("100000000", "hex")
+        y := new BigInt("-100000000", "hex")
+        
+        res := x.add(y)
+        a.equals(res[1], 0)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("100000000", "hex")))
+        a.true(y.eq(new BigInt("-100000000", "hex")))
+    }
+    test_normal5() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("-100000000", "hex")
+        y := new BigInt("100000000", "hex")
+        
+        res := x.add(y)
+        a.equals(res[1], 0)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("-100000000", "hex")))
+        a.true(y.eq(new BigInt("100000000", "hex")))
+    }
+    test_normal6() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("-100000000", "hex")
+        y := new BigInt("-100000000", "hex")
+        
+        res := x.add(y)
+        a.equals(res[1], 0)
+        a.equals(res[2], 2)
+        a.equals(res._maxindex(), 2)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt("-100000000", "hex")))
+        a.true(y.eq(new BigInt("-100000000", "hex")))
+    }
+    test_normal7() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("20000000000000000", "hex")
+        y := new BigInt("-100000000", "hex")
+        
+        res := x.add(y)
+        a.equals(res[1], 0)
+        a.equals(res[2], 0xffffffff)
+        a.equals(res[3], 1)
+        a.equals(res._maxindex(), 3)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("20000000000000000", "hex")))
+        a.true(y.eq(new BigInt("-100000000", "hex")))
+    }
+    test_normal8() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("20000000000000000", "hex")
+        y := new BigInt("-100000001", "hex")
+        
+        res := x.add(y)
+        a.equals(res[1], 0xffffffff)
+        a.equals(res[2], 0xfffffffe)
+        a.equals(res[3], 1)
+        a.equals(res._maxindex(), 3)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("20000000000000000", "hex")))
+        a.true(y.eq(new BigInt("-100000001", "hex")))
+    }
+}
+
+runUnitTests(new tests_sub())
+class tests_sub {
+    outputmethods := [func("output_msgbox")]
+    test_Basic1() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(9)
+        y := new BigInt(8)
+        
+        res := x.sub(y)
+        a.equals(res[1], 1)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(9)))
+        a.true(y.eq(new BigInt(8)))
+    }
+    test_Basic2() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-9)
+        y := new BigInt(8)
+        
+        res := x.sub(y)
+        a.equals(res[1],17)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt(-9)))
+        a.true(y.eq(new BigInt(8)))
+    }
+    test_Basic3() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(9)
+        y := new BigInt(-8)
+        
+        res := x.sub(y)
+        a.equals(res[1],17)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(9)))
+        a.true(y.eq(new BigInt(-8)))
+    }   
+    test_Basic4() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-9)
+        y := new BigInt(-8)
+        
+        res := x.sub(y)
+        a.equals(res[1],1)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt(-9)))
+        a.true(y.eq(new BigInt(-8)))
+    }
+    test_Basic5() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(8)
+        y := new BigInt(9)
+        
+        res := x.sub(y)
+        a.equals(res[1],1)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt(8)))
+        a.true(y.eq(new BigInt(9)))
+    }   
+    test_Basic6() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-8)
+        y := new BigInt(9)
+        
+        res := x.sub(y)
+        a.equals(res[1], 17)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt(-8)))
+        a.true(y.eq(new BigInt(9)))
+    }
+    test_Basic7() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(8)
+        y := new BigInt(-9)
+        
+        res := x.sub(y)
+        a.equals(res[1], 17)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(8)))
+        a.true(y.eq(new BigInt(-9)))
+    }
+    test_Basic8() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-8)
+        y := new BigInt(-9)
+        
+        res := x.sub(y)
+        a.equals(res[1], 1)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(-8)))
+        a.true(y.eq(new BigInt(-9)))
+    }
+    test_Basic9() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(-8)
+        y := new BigInt(-9)
+        
+        res := x.sub(y)
+        a.equals(res[1], 1)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(-8)))
+        a.true(y.eq(new BigInt(-9)))
+    }
+    test_Basic10() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt(12)
+        y := new BigInt(8)
+        
+        res := x.sub(y)
+        a.equals(res[1], 4)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt(12)))
+        a.true(y.eq(new BigInt(8)))
+    }
+    test_normal1() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("200000000", "hex")
+        y := new BigInt(1)
+        
+        res := x.sub(y)
+        a.equals(res[1], 0xffffffff)
+        a.equals(res[2], 1)
+        a.equals(res._maxindex(), 2)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("200000000", "hex")))
+        a.true(y.eq(new BigInt(1)))
+    }
+    test_normal2() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("100000000", "hex")
+        y := new BigInt(-1)
+        
+        res := x.sub(y)
+        a.equals(res[1], 1 )
+        a.equals(res[2], 1 )
+        a.equals(res._maxindex(), 2)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("100000000", "hex")))
+        a.true(y.eq(new BigInt(-1)))
+    }
+    test_normal3() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("100000000", "hex")
+        y := new BigInt("100000000", "hex")
+        
+        res := x.sub(y)
+        a.equals(res[1], 0)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("100000000", "hex")))
+        a.true(y.eq(new BigInt("100000000", "hex")))
+    }
+    test_normal4() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("100000000", "hex")
+        y := new BigInt("-100000000", "hex")
+        
+        res := x.sub(y)
+        a.equals(res[1], 0)
+        a.equals(res[2], 2)
+        a.equals(res._maxindex(), 2)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("100000000", "hex")))
+        a.true(y.eq(new BigInt("-100000000", "hex")))
+    }
+    test_normal5() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("-100000000", "hex")
+        y := new BigInt( "100000000", "hex")
+        
+        res := x.sub(y)
+        a.equals(res[1], 0)
+        a.equals(res[2], 2)
+        a.equals(res._maxindex(), 2)
+        a.equals(res.neg, -1)
+        a.true(x.eq(new BigInt("-100000000", "hex")))
+        a.true(y.eq(new BigInt( "100000000", "hex")))
+    }
+    test_normal6() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("-100000000", "hex")
+        y := new BigInt("-100000000", "hex")
+        
+        res := x.sub(y)
+        a.equals(res[1], 0)
+        a.equals(res._maxindex(), 1)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("-100000000", "hex")))
+        a.true(y.eq(new BigInt("-100000000", "hex")))
+    }
+    test_normal7() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("20000000000000000", "hex")
+        y := new BigInt("-100000000", "hex")
+        
+        res := x.sub(y)
+        a.equals(res[1], 0)
+        a.equals(res[2], 1)
+        a.equals(res[3], 2)
+        a.equals(res._maxindex(), 3)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("20000000000000000", "hex")))
+        a.true(y.eq(new BigInt("-100000000", "hex")))
+    }
+    test_normal8() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("20000000000000000", "hex")
+        y := new BigInt("-100000001", "hex")
+
+        res := x.sub(y)
+        a.equals(res[1], 1)
+        a.equals(res[2], 1)
+        a.equals(res[3], 2)
+        a.equals(res._maxindex(), 3)
+        a.equals(res.neg, 1)
+        a.true(x.eq(new BigInt("20000000000000000", "hex")))
+        a.true(y.eq(new BigInt("-100000001", "hex")))
+    }
+}
+
+runUnitTests(new tests_new())
+class tests_new {
+    outputmethods := [func("output_msgbox")]
+    
+    test_default() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("acd6820def48327", "hex")
+        a.equals(x[1], 0xdef48327)
+        a.equals(x[2], 0xacd6820)
+        a.equals(x.neg, 1)
+    }
+    
 }
 
 runUnitTests(new tests_mult())
