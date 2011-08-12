@@ -55,20 +55,20 @@ class BigInt
     }
     
     _sum( nbs ) {
-        Global BigInt
+        global BigInt
         while nb := nbs.remove()
         {
             b := nb.__class = "BigInt" ? nb : new BigInt(nb)
             if b.neg == this.neg
-                rneg := 1 , xneg := 1
-            else if this.abs().gt(b.abs())
-                rneg := 1 , xneg := -1
+                tneg := 1 , bneg := 1
+            else if (this.abs()).gt(b.abs())
+                tneg := 1 , bneg := -1
             else
-                this.neg := b.neg  , rneg := -1, xneg := 1
+                this.neg := b.neg  , tneg := -1, bneg := 1
             carry := 0
             loop max(b._MaxIndex(), this._MaxIndex())
             {
-                t := (this[A_Index] OR 0)*rneg + (b[A_Index] OR 0)*xneg + carry
+                t := (this[A_Index] OR 0)*tneg + (b[A_Index] OR 0)*bneg + carry
                 if t < 0
                     this[A_Index] := t + 0x100000000
                     , carry := -1
@@ -111,7 +111,7 @@ class BigInt
     
     _div( D, ByRef R := 0 ) {
     ; adapted from BigInt lib from http://sourceforge.net/projects/cpp-bigint/
-        Global BigInt
+        global BigInt
         if D.__class != "BigInt"
             D := new BigInt(D)
         else
@@ -145,10 +145,8 @@ class BigInt
             {
                 this._shl()
                 if D.lteq(N)
-                {
                     N._sub(D)
-                    this._add(1)
-                }
+                    , this._add(1)
                 D._shr()
             }
         if IsByRef(R)
@@ -296,6 +294,7 @@ class BigInt
     }
     
     gt( nb ) {
+        global BigInt
         b := nb.__class = "BigInt" ? nb : new BigInt(nb)
         if this.neg != b.neg
             return this.neg > b.neg
@@ -303,9 +302,15 @@ class BigInt
             return false
         i := max(this._maxindex(), b._maxindex())
         while i
-            if (this[i] OR 0)*this.neg > (b[i--] OR 0)*b.neg
-                return true
-        return ""
+        {
+            x := (this[i] OR 0)*this.neg
+            y := (b[i] OR 0)*b.neg
+            if x == y
+                i--
+            else
+                return x > y
+        }
+        return false
     }
     
     gteq( nb ) {
@@ -313,6 +318,7 @@ class BigInt
     }
     
     lt( nb ) {
+        global BigInt
         b := nb.__class = "BigInt" ? nb : new BigInt(nb)
         if this.neg != b.neg
             return this.neg < b.neg
@@ -320,8 +326,14 @@ class BigInt
             return false
         i := max(this._maxindex(), b._maxindex())
         while i
-            if (this[i] OR 0)*this.neg < (b[i--] OR 0)*b.neg
-                return true
+        {
+            x := (this[i] OR 0)*this.neg
+            y := (b[i] OR 0)*b.neg
+            if x == y
+                i--
+            else
+                return x < y
+        }
         return false
     }
     
