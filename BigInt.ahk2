@@ -1,15 +1,16 @@
 
 class BigInt
 {
-    mult( n ) {
+    mult( nb ) {
         global BigInt
-        if n.__Class == "BigInt"
+        if nb.__Class == "BigInt"
         {
+            b := nb
             ins := []
             layers := []
-            loop n._MaxIndex()
+            loop b._MaxIndex()
             {
-                lay := this.Mult(n[A_Index])
+                lay := this.Mult(b[A_Index])
                 if ins._maxindex()
                     lay.insert(1, ins*)
                 ins.insert(0)
@@ -17,9 +18,10 @@ class BigInt
             }
             ret := layers.remove()
             ret._sum(layers)
-            ret.neg := n.neg * this.neg
+            ret.neg := b.neg * this.neg
             return ret
         }
+        n := nb
         if n == 0 OR this.eq(0)
             return new BigInt(0)
         if Abs(n) == 1
@@ -46,28 +48,27 @@ class BigInt
         return ret
     }
     
-    sum( ns ) {
+    sum( nbs ) {
         ret := this.clone()
-        ret._sum(ns)
+        ret._sum(nbs)
         return ret
     }
     
-    _sum( ns ) {
+    _sum( nbs ) {
         Global BigInt
-        while n := ns.remove()
+        while nb := nbs.remove()
         {
-            if n.__Class != "BigInt"
-                n := new BigInt(n)
-            if n.neg == this.neg
+            b := nb.__class = "BigInt" ? nb : new BigInt(nb)
+            if b.neg == this.neg
                 rneg := 1 , xneg := 1
-            else if this.abs().gt(n.abs())
+            else if this.abs().gt(b.abs())
                 rneg := 1 , xneg := -1
             else
-                this.neg := n.neg  , rneg := -1, xneg := 1
+                this.neg := b.neg  , rneg := -1, xneg := 1
             carry := 0
-            loop max(n._MaxIndex(), this._MaxIndex())
+            loop max(b._MaxIndex(), this._MaxIndex())
             {
-                t := (this[A_Index] OR 0)*rneg + (n[A_Index] OR 0)*xneg + carry
+                t := (this[A_Index] OR 0)*rneg + (b[A_Index] OR 0)*xneg + carry
                 if t < 0
                     this[A_Index] := t + 0x100000000
                     , carry := -1
@@ -81,37 +82,34 @@ class BigInt
         this._trim()
     }
     
-    add( n ) {
-        return this.sum([n])
+    add( nb ) {
+        return this.sum([nb])
     }
     
-    _add( n ) {
-        this._sum([n])
+    _add( nb ) {
+        this._sum([nb])
     }
     
-    sub( n ) {
+    sub( nb ) {
         ret := this.clone()
-        ret._sub(n)
+        ret._sub(nb)
         return ret
     }
     
-    _sub( n ) {
+    _sub( nb ) {
         Global BigInt
-        if n.__class != "BigInt"
-            n := new BigInt(n)
-        else
-            n := n.clone()
-        n.neg := n.neg * -1
-        this._sum([n])
+        b := nb.__class = "BigInt" ? nb.clone() : new BigInt(nb)
+        b.neg := b.neg * -1
+        this._sum([b])
     }
     
-    div( D, ByRef R = 0 ) {
+    div( D, ByRef R := 0 ) {
         ret := this.clone()
         ErrorLevel := IsByRef(R) ? ret._div(D,R) : ret._div(D)
         return ret
     }
     
-    _div( D, ByRef R = 0 ) {
+    _div( D, ByRef R := 0 ) {
     ; adapted from BigInt lib from http://sourceforge.net/projects/cpp-bigint/
         Global BigInt
         if D.__class != "BigInt"
@@ -132,9 +130,9 @@ class BigInt
         if D.eq(0) 
             return "Error: Can't divide by zero" 
         
-        ;this := new BigInt(0)
-        this.remove(1,this._maxindex())
-        this.insert(0)
+        this.remove("", Chr(A_IsUnicode ? 65535 : 255)) ; remove string keys
+        this.remove(this._minindex(),this._maxindex())  ; remove integer keys
+        this.__new() ; re-initialize this
         
         shiftcnt := 0
         while D.lt(N)
@@ -166,13 +164,12 @@ class BigInt
         return bits
     }
     
-    pow( n ) {
+    pow( nb ) {
         global BigInt
-        if n.__Class != "BigInt"
-            n := new BigInt(n)
-        if n.neg == -1
+        b := nb.__class = "BigInt" ? nb : new BigInt(nb)
+        if b.neg == -1
             return "Error: Exponent must be positive."
-        return BigInt._power(this, n)
+        return BigInt._power(this, b)
     }
     
     _power( x, n ) {
@@ -188,13 +185,13 @@ class BigInt
         return BigInt._power(x.mult(x), n.shr())  ; even
     }
     
-    shl( n = 1 ) {
+    shl( n := 1 ) {
         ret := this.clone()
         ret._shl(n)
         return ret
     }
     
-    _shl( n = 1 ) {
+    _shl( n := 1 ) {
         loop n//32
             this.insert(1, 0)
         n := mod(n,32)
@@ -209,13 +206,13 @@ class BigInt
         this._trim()
     }
     
-    shr( n = 1 ) {
+    shr( n := 1 ) {
         ret := this.clone()
         ret._shr(n)
         return ret
     }
     
-    _shr( n = 1 ) {
+    _shr( n := 1 ) {
         if n//32
         {
             this.remove(1, n//32)
@@ -229,45 +226,61 @@ class BigInt
         this._trim()
     }
     
-    or( n ) {
-        global BigInt
-        if n.__class != "BigInt"
-            n := new BigInt(n)
+    or( nb ) {
         ret := this.clone()
-        loop n._maxindex()
-            ret[A_Index] := (ret[A_Index] OR 0) | n[A_Index]
+        ret._or(nb)
         return ret
     }
     
-    and( n ) {
+    _or( nb ) {
         global BigInt
-        if n.__class != "BigInt"
-            n := new BigInt(n)
-        ret := new BigInt()
-        ret.neg := this.neg
-        loop n._maxindex()
-            ret[A_Index] := (this[A_Index] OR 0) & n[A_Index]
-        return ret
+        b := nb.__class = "BigInt" ? nb : new BigInt(nb)
+        loop b._maxindex()
+            this[A_Index] := (this[A_Index] OR 0) | b[A_Index]
+        return this
     }
     
-    xor( n ) {
-        global BigInt
-        if n.__class != "BigInt"
-            n := new BigInt(n)
+    and( nb ) {
         ret := this.clone()
-        loop n._maxindex()
-            ret[A_Index] := (ret[A_Index] OR 0) ^ n[A_Index]
+        ret._and(nb)
         return ret
     }
     
-    not( m = "" ) {
+    _and( nb ) {
+        global BigInt
+        b := nb.__class = "BigInt" ? nb : new BigInt(nb)
+        loop max(b._maxindex(), this._maxindex())
+            this[A_Index] := (this[A_Index] OR 0) & (b[A_Index] OR 0)
+        this._trim()
+        return this
+    }
+    
+    xor( nb ) {
+        ret := this.clone()
+        ret._xor(nb)
+        return ret
+    }
+    
+    _xor( nb ) {
+        global BigInt
+        b := nb.__class = "BigInt" ? nb : new BigInt(nb)
+        loop b._maxindex()
+            this[A_Index] := (this[A_Index] OR 0) ^ b[A_Index]
+        return ret
+    }
+    
+    not( m := "" ) {
+        ret := this.clone()
+        ret._not(m)
+        return ret
+    }
+    
+    _not( m := "" ) {
         m := max(this.maxbit(), m)
-        ret := this.clone()
         loop m // 32
-            ret[A_Index] := ~ret[A_Index] & 0xffffffff
+            this[A_Index] := ~this[A_Index] & 0xffffffff
         if mod(m, 32)
-            ret[ret._maxindex()] := ~ret[ret._maxindex()] & (0xffffffff >> (32-mod(m,32)))
-        return ret
+            this[this._maxindex()] := ~this[this._maxindex()] & (0xffffffff >> (32-mod(m,32)))
     }
     
     sqrt() {
@@ -282,52 +295,53 @@ class BigInt
     
     }
     
-    gt( n ) {
-        if this.neg != n.neg
-            return this.neg > n.neg
-        if this._maxindex()*this.neg < n._maxindex()*n.neg
+    gt( nb ) {
+        b := nb.__class = "BigInt" ? nb : new BigInt(nb)
+        if this.neg != b.neg
+            return this.neg > b.neg
+        if this._maxindex()*this.neg < b._maxindex()*b.neg
             return false
-        i := max(this._maxindex(), n._maxindex())
+        i := max(this._maxindex(), b._maxindex())
         while i
-            if (this[i] OR 0)*this.neg > (n[i--] OR 0)*n.neg
+            if (this[i] OR 0)*this.neg > (b[i--] OR 0)*b.neg
                 return true
         return ""
     }
     
-    gteq( n ) {
-        return this.gt(N) OR this.eq(n)
+    gteq( nb ) {
+        return this.gt(nb) OR this.eq(nb)
     }
     
-    lt( n ) {
-        if this.neg != n.neg
-            return this.neg < n.neg
-        if this._maxindex()*this.neg > n._maxindex()*n.neg
+    lt( nb ) {
+        b := nb.__class = "BigInt" ? nb : new BigInt(nb)
+        if this.neg != b.neg
+            return this.neg < b.neg
+        if this._maxindex()*this.neg > b._maxindex()*b.neg
             return false
-        i := max(this._maxindex(), n._maxindex())
+        i := max(this._maxindex(), b._maxindex())
         while i
-            if (this[i] OR 0)*this.neg < (n[i--] OR 0)*n.neg
+            if (this[i] OR 0)*this.neg < (b[i--] OR 0)*b.neg
                 return true
         return false
     }
     
-    lteq( n ) {
-        return this.lt(n) OR this.eq(n)
+    lteq( nb ) {
+        return this.lt(nb) OR this.eq(nb)
     }
     
-    eq( n ) {
+    eq( nb ) {
         global BigInt
-        if n.__class != "BigInt"
-            n := new BigInt(n)
-        if this._maxindex() != n._maxindex() OR this.neg != n.neg
+        b := nb.__class = "BigInt" ? nb : new BigInt(nb)
+        if this._maxindex() != b._maxindex() OR this.neg != b.neg
             return false
         loop this._maxindex()
-            if this[A_Index] != n[A_Index]
+            if this[A_Index] != b[A_Index]
                 return false
         return true
     }
     
-    noteq( n ) {
-        return !this.eq(n)
+    noteq( nb ) {
+        return !this.eq(nb)
     }
     
     abs() {
@@ -349,7 +363,7 @@ class BigInt
             this.neg := 1
     }
     
-    __new( ByRef x = 0, options = '', chars = '' ) {
+    __new( ByRef x := 0, options := '', chars := '' ) {
         ; support options:
         ;   x is bytearray (must be byref)(big or little edian)
         ;   
@@ -380,7 +394,7 @@ class BigInt
         return this
     }
     
-    __string( format = "hex" ) {
+    __string( format := "hex" ) {
         ; add little-edian format
         ; add octal format
         ; add decimal format

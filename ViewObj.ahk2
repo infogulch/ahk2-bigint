@@ -1,4 +1,4 @@
-ViewObj( obj, seps="" ) {
+ViewObj( obj, seps:="" ) {
     array := True
     sep := seps._maxindex() ? seps.remove(1) : ", "
     for k,v in obj
