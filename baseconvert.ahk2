@@ -23,7 +23,7 @@ msgbox % x.__string()
 
 msgbox % toanybase(x, 58, base58chars)
 
-fromanybase( str, base, chars = "", opt = "big i" ) {
+fromanybase( str, base, chars := "", opt := "big i" ) {
     global BigInt
     base := new BigInt(base)
     ret := new BigInt(0)
@@ -39,7 +39,7 @@ fromanybase( str, base, chars = "", opt = "big i" ) {
     return ret
 }
 
-toanybase( this, base, chars = "" ) {
+toanybase( this, base, chars := "" ) {
     global BigInt
     if base.__class != "BigInt"
         base := new BigInt(base)
@@ -47,7 +47,6 @@ toanybase( this, base, chars = "" ) {
     while x.noteq(0)
     {
         x._div(base, rem)
-        msgbox % viewobj(x) "`n`n" viewobj(rem)
         ret := substr(chars, rem[1]+1, 1) ret
     }
     return ret
