@@ -47,7 +47,10 @@ Add:
     
     Base conversion function. integrate it with __new().
     
-    Alternate multiplication alg. ??
+    method parameter naming scheme: n: ahk-number, b: bigint; s: array of n and/or b
+        used like: nb (number or BigInt) nbs (array of numbers or bigints)
+                   b (only bigint)
+                   n (only number)
     
     tests for __new getting ahk number > 32 bits long
 Fix:
@@ -3891,7 +3894,7 @@ class tests_div {
         
         a.equals(res._maxindex(),2)
         a.equals(res[1], 0)
-        a.equals(res[2], 1)
+        a.equals(res[2], 8)
         a.equals(res.neg, 1)
         
         a.equals(r._maxindex(),1)
@@ -3899,6 +3902,26 @@ class tests_div {
         a.equals(r.neg, 1)
         
         a.true(x.eq(new BigInt("1000000000","hex")))
+        a.true(y.eq(new BigInt(2)))
+    }
+    test_normal2() {
+        global assert, BigInt
+        a := new assert(A_ThisFunc, A_LineNumber, this.outputmethods)
+        x := new BigInt("-200000000","hex")
+        y := new BigInt(2)
+        
+        res := x.div(y,r)
+        
+        a.equals(res._maxindex(),2)
+        a.equals(res[1], 0)
+        a.equals(res[2], 1)
+        a.equals(res.neg, -1)
+        
+        a.equals(r._maxindex(),1)
+        a.equals(r[1],0)
+        a.equals(r.neg, 1)
+        
+        a.true(x.eq(new BigInt("-200000000","hex")))
         a.true(y.eq(new BigInt(2)))
     }
 }
