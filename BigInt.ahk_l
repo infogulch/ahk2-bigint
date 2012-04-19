@@ -21,6 +21,7 @@ class BigInt
             ret.neg := b.neg * this.neg
             return ret
         }
+        ; special cases of 0 and 1
         n := nb
         if n == 0 OR this.eq(0)
             return new BigInt(0)
@@ -168,6 +169,20 @@ class BigInt
         if b.neg == -1
             return "Error: Exponent must be positive."
         return BigInt._power(this, b)
+    }
+    
+    _pow( b ) {
+        global BigInt
+        if this.eq(0)
+            return new BigInt(0)
+        if this.eq(1) OR b.eq(0)
+            return new BigInt(1)
+        if b.eq(1)
+            return this.clone()
+        ret := this._pow(this.mult(this), n.shr())
+        if b[1] & 1  ; odd
+            return this.mult(ret)
+        return ret
     }
     
     _power( x, n ) {
@@ -375,35 +390,79 @@ class BigInt
             this.neg := 1
     }
     
-    __new( ByRef x := 0, options := '', chars := '' ) {
+    neg := 1
+    __new( ByRef x := 0, base := '', chars := '', endian := 'little' ) {
         ; support options:
         ;   x is bytearray (must be byref)(big or little edian)
         ;   
-        if options == ''
+        this[1] := 0
+        if base == '' AND Type(x+0) = "Integer"
         {
-            this.neg := sign(x)
-            carry := Abs(Floor(x)) >> 32
-            this[1] := Abs(Floor(x)) & 0xffffffff
-            if carry
-                this[2] := carry
+            if x < 0
+                this.neg := -1
+            x := abs(x)
+            this[1] := x & 0xffffffff
+            this[2] := x >> 32
+            this._trim()
+            return this
         }
-        if options = 'hex'
+        else if base ~= 'i)bytes?'
+            return this.__fromBinary(x, chars OR (IsByRef(x) ? VarSetCapacity(x) : StrLen(x) * (A_IsUnicode ? 2 : 1), endian, 1))
+        else if base = 'string'
+            return this.__fromBinary(x, StrLen(x), endian, A_IsUnicode ? 2 : 1)
+        
+        if base == '' AND Type(x+0) = "Float"
         {
-            this.neg := substr(x,1,1) == '-' ? -1 : 1
-            this[1] := 0
-            if this.neg == -1
-                x := substr(x,2)
-            if substr(x,1,2) == '0x'
-                x := substr(x,3)
-            while x
-            {
-                y := substr(x,-8)
-                this[A_Index] := ("0x" y) + 0
-                x := substr(x, 1, -8)
-            }
+            x := Format("{1:.0f}", x)
+            base := 10
+            chars := "0123456789"
+            if SubStr(x, 1, 1) == '-'
+                x := SubStr(x,2), this.neg := -1
+        }
+        if base = 'hex' OR (SubStr(x, 1, 2) = '0x' AND base = '') OR (base = 16 AND chars = '')
+        {
+            if SubStr(x, 1, 1) == '-'
+                x := SubStr(x,2), this.neg := -1
+            if SubStr(x, 1, 2) = '0x'
+                x := SubStr(x, 3)
+            base := 16
+            if chars = ''
+                chars := '0123456789abcdef'
+        }
+        else if base = 'bin' OR (SubStr(x, 1, 2) = '0b' AND base = '') OR (base = 2 AND chars = '')
+        {
+            if SubStr(x, 1, 1) == '-'
+                x := SubStr(x,2), this.neg := -1
+            if SubStr(x, 1, 2) = '0b'
+                x := SubStr(x, 3)
+            base := 2
+            if chars = ''
+                chars := '01'
         }
         this._trim()
         return this
+    }
+    
+    __fromBinary(ByRef x, len, endian, bytesper) {
+        bigendian := endian = 'little'
+        type := bytesper = 1 ? "uchar" : "ushort"
+        if len*bytesper > VarSetCapacity(x)
+            return "invalid length"
+        loop len
+            this[ceil(A_Index / (4 / bytesper))] |= NumGet(x, (A_Index-1)*bytesper, type) << mod(A_Index-1, 4/bytesper)*8*bytesper
+        return this
+    }
+    
+    __fromBase( str, chars := "" ) {
+        global BigInt
+        base := new BigInt(StrLen(chars))
+        loop StrLen(str)
+        {
+            num := InStr(chars, SubStr(str, -A_Index, 1), 1)-1
+            if num < 0
+                return "Error: unexpected character"
+            this._add((new BigInt(num)).mult(base.pow(A_Index-1)))
+        }
     }
     
     __string( format := "hex" ) {
