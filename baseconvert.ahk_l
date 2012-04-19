@@ -22,17 +22,16 @@ base58chars := "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 addr58 := "1Hdbo1Pa3Vg6ytyXF9bEx4tzZbRUAjPMfE"
 
 ;x := fromanybase(addr58, 58, base58chars)
-x := fromanybase('abdkdlkjq', 27, '0123456789abcdefghijklmnopq')
+x := fromanybase("abdkdlkjq", 27, "0123456789abcdefghijklmnopq")
 
 msgbox % x.__string()
 
 ;s := toanybase(x, 58, base58chars)
-s := toanybase(x, 2, '01')
+s := toanybase(x, 2, "01")
 
 msgbox % s
 
-fromanybase( str, base, chars := "", opt := "big i" ) {
-    global BigInt
+fromanybase( str, base, chars = "", opt = "big i" ) {
     base := new BigInt(base)
     ret := new BigInt()
     loop StrLen(str)
@@ -40,14 +39,13 @@ fromanybase( str, base, chars := "", opt := "big i" ) {
         c := SubStr(str, -A_Index, 1)
         num := InStr(chars, c, 1)-1
         if num < 0
-            return "Error: unexpected character: '" c "'"
+            return "Error: unexpected character: "" c """
         ret._add((new BigInt(num)).mult(base.pow(A_Index-1)))
     }
     return ret
 }
 
-toanybase( this, base, chars := "" ) {
-    global BigInt
+toanybase( this, base, chars = "" ) {
     if base.__class != "BigInt"
         base := new BigInt(base)
     x := this.clone()
@@ -59,6 +57,6 @@ toanybase( this, base, chars := "" ) {
     return ret
 }
 
-#include BigInt.ahk2
+#include BigInt.ahk_l
 ExitApp
 Esc::ExitApp

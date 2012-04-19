@@ -129,15 +129,15 @@ output_csv(result, func, line, details) {
 
 output_msgbox(result, func, line, details) {
     if !result
-        MsgBox % "Test: " func "`nResult: " result "`nLine: " line "`n" ViewObj(details, [',`n',', '])
+        MsgBox % "Test: " func "`nResult: " result "`nLine: " line "`n" ViewObj(details, [",`n",", "])
 }
 
 output_msgbox_all(result, func, line, details) {
-    MsgBox % "Test: " func "`nResult: " result "`nLine: " line "`n" ViewObj(details, [',`n',', '])
+    MsgBox % "Test: " func "`nResult: " result "`nLine: " line "`n" ViewObj(details, [",`n",", "])
 }
 
 output_treeview(result, func, line, details) {
     ; http://www.autohotkey.com/forum/topic55709.html treeview row coloring
 }
 
-#include ViewObj.ahk2
+#include ViewObj.ahk_l
